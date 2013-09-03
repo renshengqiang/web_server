@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <assert.h>
-
+#include <dirent.h>
+#include <errno.h>
 #include "utilities.h"
 
 FILE *open_file(const char *file_name, const char *mode)
@@ -48,3 +49,30 @@ int search_string(const char *str, const char *pattern)
 	return -1;
 }
 
+int is_end_with_dot(char *path)
+{
+    int len = strlen(path);
+    if(path[len-1] == '.')
+        return 1;
+    return 0;
+}
+
+/*return 1:dir, 2:file*/
+int dir_or_file(char *path)
+{
+    DIR *dp;
+    if((dp = opendir(path)) == NULL)
+    {
+        if(errno == ENOTDIR)
+        {
+            return 2;
+        }
+        else
+            return errno;
+    }
+    else
+    {
+        closedir(dp);
+        return 1;
+    }
+}

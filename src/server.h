@@ -10,6 +10,8 @@ void run_server();
 
 void str_echo(int sockfd);
 
+void dir_echo(int sockfd);
+
 struct config_t {
 	unsigned int port;
 };

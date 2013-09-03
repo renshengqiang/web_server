@@ -14,5 +14,7 @@ void *alloc_memory(size_t size);
 
 int search_string(const char *str, const char *pattern);
 
+int is_end_with_dot(char *path);
+int dir_or_file(char *path);
 #endif
 
